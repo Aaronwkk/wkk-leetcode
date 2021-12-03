@@ -84,7 +84,6 @@ var searchRange = function(nums, target) {
       r = mid-1
     }
   }
-  console.log(left, r)
 };
 // @lc code=end
 
