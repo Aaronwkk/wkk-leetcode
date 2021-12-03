@@ -55,28 +55,30 @@
  * @param {number} target
  * @return {boolean}
  */
+var searchMatrix = function(matrix, target) {
 
-var find = function(nums, target){
+  let top = 0
+  let bottom = matrix.length - 1
+  while(top<bottom){
+    const mid = Math.ceil(top+(bottom-top)/2)
+    if(matrix[mid][0] <= target){
+      top = mid
+    }else{
+      bottom = mid - 1
+    }
+  }
+
   let l = 0
-  let r = nums.length - 1
+  let r = matrix[top].length - 1
   while(l<r){
     const mid = Math.ceil(l+(r-l)/2)
-    if(nums[mid] <= target){
+    if(matrix[top][mid] <= target){
       l = mid
     }else{
       r = mid - 1
     }
   }
-  return l
-}
-var searchMatrix = function(matrix, target) {
-
-  const cols = matrix.map(item => item[0])
-  const col = find(cols, target)
-
-  const ind = find(matrix[col], target)
-
-  return matrix[col][ind] === target 
+  return matrix[top][l] === target
 };
 // @lc code=end
 
