@@ -68,8 +68,75 @@
  * @param {number[]} nums
  * @return {number}
  */
-var minSubArrayLen = function(target, nums) {
 
-};
+// 队列相加
+
+// var minSubArrayLen = function(target, nums) {
+//   let ans = Number.MAX_SAFE_INTEGER
+//   let sum = 0
+//   let left = 0
+//   for(let i = 0; i<nums.length; i++){
+//     sum += nums[i]
+//     while(sum >= target){
+//       ans = Math.min(ans, i-left+1)
+//       sum -= nums[left]
+//       left++
+//     }
+//   }
+//   return ans == Number.MAX_SAFE_INTEGER ? 0 : ans;
+// };
+
+// 队列相减
+
+// var minSubArrayLen = function(target, nums){
+//   let ans = Number.MAX_SAFE_INTEGER
+//   let sum = target
+//   let left = 0
+//   let right = 0
+//   while(right<nums.length){
+//     sum -= nums[right++]
+//     while(sum<=0){
+//       ans = Math.min(ans, right-left)
+//       sum += nums[left++];
+//     }
+//   }
+//   return ans == Number.MAX_SAFE_INTEGER ? 0 : ans; 
+// }
+
+// 前奏和 二分查找
+
+var binarySearch = function(nums,target){
+  let l = 0
+  let r = nums.length - 1
+  while(l<r){
+    const mid = Math.floor(l+(r-l)/2)
+    if(nums[mid] < target){
+      l = mid + 1
+    }else{
+      r = mid
+    }
+  }
+  return l
+}
+
+var minSubArrayLen = function(target, nums){
+  const arr = new Array()
+  arr[0] = 0
+  let ans = Number.MAX_SAFE_INTEGER
+  for(let i = 0; i<nums.length; i++){
+    arr[i+1] = nums[i] + arr[i]
+  }
+  for(let i = 0; i<arr.length; i++){
+    const sum = arr[i]+target
+    const ind = binarySearch(arr, sum)
+    console.log(i, ind)
+    if(arr[ind] >= sum){
+      ans = Math.min(ans, ind-i)
+    }
+  }
+  return ans === Number.MAX_SAFE_INTEGER ? 0:ans
+}
+
+
 // @lc code=end
 
