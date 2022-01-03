@@ -37,14 +37,11 @@
  * @return {number}
  */
 var integerBreak = function(n) {
-  const dp = new Array(n + 1);
-    dp[1] = 1;
-    for (const i = 2; i <= n; i++) {
-        for (const j = 1; j <= i - 1; j++) {
-          dp[i] = Math.max(dp[i], Math.max(dp[i-j] * ))
-        }
+    const dp = function(sum){
+      if(sum <= 1) return sum
+      return Math.max()
     }
-    return dp[n];
+    return dp(n)
 };
 // @lc code=end
 

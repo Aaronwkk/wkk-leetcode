@@ -66,6 +66,9 @@
  * @param {string[]} wordDict
  * @return {string[]}
  */
+
+// 回溯
+
 var wordBreak = function(s, wordDict) {
   const ans = []
   const dp = function(ind, words){
