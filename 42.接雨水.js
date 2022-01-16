@@ -51,24 +51,24 @@
  * @param {number[]} height
  * @return {number}
  */
-var trap = function(height) {
+// var trap = function(height) {
+//   let n = height.length
+//   l = new Array(n)
+//   r = new Array(n)
+//   let ans = 0
+//   for(let i = 0; i<n; i++){
+//     l[i] = i === 0? height[i]:Math.max(l[i-1], height[i])
+//   }
+//   for(let i = n-1; i>=0; i--){
+//     r[i] = i === n-1? height[i]:Math.max(r[i+1], height[i])
+//   }
+//   for(let i = 0; i<n; ++i){
+//     ans += Math.min(l[i], r[i]) - height[i]
+//   }
+//   return ans
+// };
 
-};
+var trap = function(){
+  
+}
 // @lc code=end
-
-
-
-var lowestCommonAncestor = function(root, p, q) {
-  let ans;
-  const dfs = (root, p, q) => {
-      if (root === null) return false;
-      const lson = dfs(root.left, p, q);
-      const rson = dfs(root.right, p, q);
-      if ((lson && rson) || ((root.val === p.val || root.val === q.val) && (lson || rson))) {
-          ans = root;
-      } 
-      return lson || rson || (root.val === p.val || root.val === q.val);
-  }
-  dfs(root, p, q);
-  return ans;
-};

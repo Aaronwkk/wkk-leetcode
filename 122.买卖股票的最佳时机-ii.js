@@ -68,12 +68,10 @@
 // 2 . 买入当前股票，钱包减少了多少
 var maxProfit = function(prices) {
   const dp = function(n){
-    if(n<0) return [0, Number.MIN_SAFE_INTEGER]
-    const [profit, balance] = dp(n-1)
-    return [Math.max(profit, balance+prices[n]), // nothing, sell
-    Math.max(balance, profit-prices[n])] // nothing, buy
+    const [profit, sold] = dp(n-1)
+    return [Math.max(sold, profit + profit[n]), Math.max(profit, profit - prices[n])]
   }
-  return dp(prices.length - 1)[0]
+  dp(prices.length - 1)
 };
 // @lc code=end
 

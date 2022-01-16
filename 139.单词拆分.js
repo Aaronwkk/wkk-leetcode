@@ -63,11 +63,39 @@
  * @param {string[]} wordDict
  * @return {boolean}
  */
-var wordBreak = function(s, wordDict) {
-  const dp = function(ind){
-    if(ind === 0) return false
-    return dp(ind-1)
+// var wordBreak = function(s, wordDict) {
+//   let map = {}
+//   const dp = function(str){
+//     if(str.length === 0) return true
+//     if(map[str] !== undefined) return map[str]
+//     let i = 1
+//     while(i<=str.length){
+//       const w = str.substring(0, i)
+//       if(wordDict.includes(w)){
+//         map[str] = dp(str.substring(i))
+//         if(map[str]) return true
+//       }
+//       i++
+//     }
+//     return false
+//   }
+//   return dp(s)
+// };
+
+var wordBreak = function(s, wordDict){
+  const dp = new Array(s.length+1).fill(false)
+  dp[0] = true
+  for(let i = 1; i<=s.length; i++){
+    let j = 0
+    while(j<i){
+      if (dp[j] && wordDict.includes(s.substring(j, i))) {
+        dp[i] = true;
+        break;
+      }
+      j++
+    }
   }
-};
+  return dp[s.length]
+}
 // @lc code=end
 

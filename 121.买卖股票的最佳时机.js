@@ -58,13 +58,14 @@
 // 1 > 返回...n的最优解 s （当前股价 - 前n天股价的最小值）
 // 2 > 返回 当前股价的最小值
 var maxProfit = function(prices) {
-  if(prices.length <= 1) return 0
-  const dp = function(n){
-    if(n<0) return [0, Number.MAX_SAFE_INTEGER]
-    const [s, min] = dp(n-1)
-    return [Math.max(s, prices[n]-min), Math.min(min, prices[n])]
+  if(prices.length <= 0) return 0
+  let a = Number.MAX_SAFE_INTEGER
+  let ans = Number.MIN_SAFE_INTEGER
+  for(let i = 0; i<prices.length; i++){
+    a = Math.min(a, prices[i])
+    ans = Math.max(prices[i] - a, ans)
   }
-  return dp(prices.length - 1)[0]
+  return ans
 };
 // @lc code=end
 
