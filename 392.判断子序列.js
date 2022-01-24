@@ -79,22 +79,48 @@
 
 // 贪心
 
-var isSubsequence = function(s, t){
-  let ind = -1
-  for(let i = 0; i<s.length; i++){
-    ind = t.indexOf(s[i], ind + 1)
-    if(ind === -1) return false
-  }
-  return true
-}
+// var isSubsequence = function(s, t){
+//   let ind = -1
+//   for(let i = 0; i<s.length; i++){
+//     ind = t.indexOf(s[i], ind + 1)
+//     if(ind === -1) return false
+//   }
+//   return true
+// }
 
 // 进阶 需要用到动态规划
 // 如果有大量输入的 S，称作 S1, S2, ... , Sk 其中 k >= 10亿
 // 时间复杂度 对于每个 s O(m×∣Σ∣+n)
+// https://www.cnblogs.com/arknights/articles/13387155.html
 
 var isSubsequence = function(s, t){
+
   // 对字符串 t 预处理
-  let dp = new Array(26).fill(0).map(() => new Array(6))
+
+  const tn = t.length
+  const sn = s.length
+
+  let dp = new Array(tn + 1).fill(0).map(() => new Array(26).fill(0))
+
+  
+  for(let i = 0; i<dp[tn].length; i++){
+    dp[tn][i] = tn
+  }
+
+  for(let i = tn - 1; i>=0; i--){
+    for(let j = 0; j<26; j++){
+      dp[i][j] = t[i].charCodeAt() - 97 === j ? i : dp[i+1][j]
+    }
+  }
+
+  let ind = 0
+
+  for(let i = 0; i<sn; i++){
+      if(dp[ind][s[i].charCodeAt() - 97] === tn) return false
+      ind = dp[ind][s[i].charCodeAt() - 97] + 1
+  }
+
+  return true
 }
 // @lc code=end
 

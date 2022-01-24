@@ -72,14 +72,14 @@ var findMin = function(nums) {
   let l = 0
   let h = nums.length-1
   while(l<h){
-      const mid = Math.floor(l+(h-l)/2)
-      if(nums[h]>nums[mid]){
-        h = mid
-      }else if(nums[mid] > nums[h]){
-        l = mid + 1
-      } else{
-        h -= 1
-      }
+    const mid = l + Math.floor((h-l)/2)
+    if(nums[mid] > nums[h]){
+      l = mid + 1
+    } else if(nums[mid] < nums[h]){
+      h = mid
+    } else {
+      h--
+    }
   }
   return nums[l]
 };
