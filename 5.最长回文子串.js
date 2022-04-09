@@ -63,7 +63,16 @@
  * @return {string}
  */
 var longestPalindrome = function(s) {
-
+  let max = 0
+  let map = new Map()
+  for(let i = 0, j = 0; i<s.length - 1; i++){
+    if(map.has(s[i])){
+      j = map.get(s[i])+1
+    }
+    max = Math.max(j - i, max)
+    map.set(s[i], i)
+  }
+  return max
 };
 // @lc code=end
 

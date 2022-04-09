@@ -62,9 +62,32 @@
  * @param {number} targetSum
  * @return {number}
  */
+const dfs = (root, prefix, curr, targetSum) => {
+  if (root == null) {
+    return 0;
+  }
+
+  let ret = 0;
+  curr += root.val;
+
+  ret = prefix.get(curr - targetSum) || 0;
+
+  prefix.set(curr, (prefix.get(curr) || 0) + 1);
+  console.log(root.val, curr, prefix.get(curr) + 1)
+
+  ret += dfs(root.left, prefix, curr, targetSum);
+  ret += dfs(root.right, prefix, curr, targetSum);
+  
+  prefix.set(curr, (prefix.get(curr) || 0) - 1);
+  console.log(root.val, curr, prefix.get(curr) - 1)
+
+  return ret;
+
+}
 var pathSum = function(root, targetSum) {
-  if(root.left) pathSum(root.left)
-  if(root.right) pathSum(root.right)
-};
+  const prefix = new Map();
+  prefix.set(0, 1);
+  return dfs(root, prefix, 0, targetSum);
+}
 // @lc code=end
 
