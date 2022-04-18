@@ -49,44 +49,63 @@
  * @param {number} k
  * @return {number}
  */
-var findKthLargest = function(nums, k) {
+// var findKthLargest = function(nums, k) {
+//   function swap(list, a, b){
+//     const t = list[b]
+//     list[b] = list[a]
+//     list[a] = t
+//   }
+//   function maxHeapify (a, i, max){
+//     const l = i*2 + 1
+//     const r = i*2 + 2
+//     let maxI = i
+//     if(l<max && a[l] > a[maxI]){
+//       maxI = l
+//     }
+//     if(r<max && a[r] > a[maxI]){
+//       maxI = r
+//     }
+//     if(maxI !== i){
+//       swap(a, i, maxI)
+//       maxHeapify(a, maxI, max)
+//     }
+//   }
+//   function buildHeap (a, max){
+//     for(let i = Math.floor(a.length / 2); i >= 0 ; i--){
+//       maxHeapify(a, i, max)
+//     }
+//   }
+//   function findKthLargest(a, k){
+//     let heapSize = a.length - 1
+//     buildHeap(a, a.length)
+//     for(let i = 0; i < k-1; i++){
+//       swap(a, 0, heapSize)
+//       heapSize--
+//       maxHeapify(a, 0, heapSize)
+//     }
+//     return a[0]
+//   }
+
+//   return findKthLargest(nums, k)
+// };
+
+var findKthLargest = function(nums, k){
   function swap(list, a, b){
     const t = list[b]
     list[b] = list[a]
     list[a] = t
   }
-  function maxHeapify (a, i, max){
-    const l = i*2 + 1
-    const r = i*2 + 2
-    let maxI = i
-    if(l<max && a[l] > a[maxI]){
-      maxI = l
+  const len = nums.length
+  for(let i = 0; i<k; i++){
+    let max = i
+    for(let j = i; j<len; j++){
+      if(nums[max] < nums[j]){
+        max = j
+      }
     }
-    if(r<max && a[r] > a[maxI]){
-      maxI = r
-    }
-    if(maxI !== i){
-      swap(a, i, maxI)
-      maxHeapify(a, maxI, max)
-    }
+    swap(nums, i, max)
   }
-  function buildHeap (a, max){
-    for(let i = Math.floor(a.length / 2); i >= 0 ; i--){
-      maxHeapify(a, i, max)
-    }
-  }
-  function findKthLargest(a, k){
-    let heapSize = a.length - 1
-    buildHeap(a, a.length)
-    for(let i = 0; i < k-1; i++){
-      swap(a, 0, heapSize)
-      heapSize--
-      maxHeapify(a, 0, heapSize)
-    }
-    return a[0]
-  }
-
-  return findKthLargest(nums, k)
-};
+  return nums[k-1]
+}
 // @lc code=end
 

@@ -70,13 +70,14 @@
  */
 var isPalindrome = function(x) {
   if(x<0) return false
-  let n = x
-  let cur = 0
-  while(n !== 0){
-    cur = cur * 10 + n % 10
-    n = ~~(n/10)
+  let a = x
+  let b = 0
+  while(a){
+    const n = a%10
+    b = n + b * 10
+    a = Math.floor(a/10)
   }
-  return cur === x
+  return x === b
 };
 // @lc code=end
 
