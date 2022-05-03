@@ -71,8 +71,41 @@
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-var nextPermutation = function(nums) {
 
+//  我们需要将一个左边的「较小数」与一个右边的「较大数」交换，
+// 以能够让当前排列变大，从而得到下一个排列。
+//  同时我们要让这个「较小数」尽量靠右，而「较大数」尽可能小。当交换完成后，
+// 「较大数」右边的数需要按照升序重新排列。这样可以在保证新排列大于原来排列的情况下，
+// 使变大的幅度尽可能小
+ 
+// [4,5,2,6,3,1]
+// [1,5,1]
+
+function swap(arr, i, j){
+  const t = arr[i]
+  arr[i] = arr[j]
+  arr[j] = t
+}
+function reverse(arr, begin, end){
+  let l = begin
+  let r = end
+  while(l<r){
+    swap(arr, l, r)
+    l++
+    r--
+  }
+}
+var nextPermutation = function(nums) {
+  const len = nums.length
+  let l = len - 2
+  while(l >= 0 && nums[l] >= nums[l+1]) l--
+  if(l >= 0){
+    let r = len - 1
+    while(r >= 0 && nums[r] <= nums[l]) r--
+    swap(nums, l, r)
+  }
+  reverse(nums, l+1, len-1)
+  return nums
 };
 // @lc code=end
 

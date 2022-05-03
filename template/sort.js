@@ -122,10 +122,12 @@ function merge(left, right){
 //方法一
 function quickSort(array, left, right) {
   if (left < right) {
-      var x = array[right], i = left - 1, temp;
+      var x = array[right], i = left - 1
       for (var j = left; j <= right; j++) {
+            // i的值始终指向比 目标值大的 第一个值，如果当前对象比目标值小，就交换i 和当前值
           if (array[j] <= x) {
               i++;
+              if(i === j) continue
               swap(array, i, j)
           }
       }
@@ -134,7 +136,11 @@ function quickSort(array, left, right) {
   }
   return array;
 }
+var arr=[2,3,1,9,10,4,7];
+// var arr=[2,3,7,5,4,9,1];
 
-var arr=[3,44,38,5,47,15,36,26,27,2,46,4,19,50,48];
+quickSort(arr, 0, arr.length-1)
+
+console.log(arr)
 
 // console.log(selectionSort(arr));//[2, 3, 4, 5, 15, 19, 26, 27, 36, 38, 44, 46, 47, 48, 50]

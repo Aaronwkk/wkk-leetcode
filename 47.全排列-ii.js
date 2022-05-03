@@ -53,24 +53,31 @@
 var permuteUnique = function(nums) {
   const len = nums.length - 1
   let ans = []
+  function swap(arr, i, j){
+    const t = arr[j]
+    arr[j] = arr[i]
+    arr[i] = t
+  }
   const dfs = function(list, i){
-    if(i === len){
-      ans.push(list.join(''))
-      return
+    if(i > len){
+      let res = []
+      for(let n of list){
+        res.push(n)
+      }
+      ans.push(res)
     }
+    let l = []
     for(let j = i; j <= len; j++){
-      const temp = list[i]
-      list[i] = list[j]
-      list[j] = temp
-
-      dfs(list, i+1)
-
-      list[j] = list[i]
-      list[i] = temp
+      if(!l.includes(list[j])){
+        l.push(list[j])
+        swap(list, i, j)
+        dfs(list, i+1)
+        swap(list, i, j)
+      }
     }
   }
   dfs(nums, 0)
-  return ans.map(item => item.split(''))
+  return ans
 };
 // @lc code=end
 
