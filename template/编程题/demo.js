@@ -1,12 +1,31 @@
-// var coinChange = function(coins, amount) {
-//   const dp = new Array(amount+1).fill(Number.MAX_SAFE_INTEGER)
-//   dp[0] = 0;  //dp[i]:换到面值i所用的最小数量
-//   for(let i = 0; i<=amount ; i++){
-//     for(coin of coins){
-//       if(coin <= i){
-//         dp[i] = Math.min(dp[i], dp[i - coin] + 1);
-//       }
-//     }
-//   }
-//   return dp[amount] > amount ? -1 : dp[amount];
-// };
+let params = {
+  a: [1,2,3],
+  b: {
+    c: 1,
+    d: 2,
+    z: [
+      {
+        a: 1,
+        b: 2
+      }
+    ]
+  }
+}
+
+function format(param){
+  let ans = {}
+  const dfs = function(obj, pre){
+    const t = typeof obj
+    if(t !== 'object') return t
+    const isArray = Array.isArray(obj)
+    if(isArray && obj.every(item => typeof item !== 'object')) return 'array'
+    for(let k in obj){
+      const key = pre ? `${pre}.${k}`: k
+      dfs(obj[k], isArray ? pre : key)
+    }
+  }
+  dfs(param)
+  console.log(ans)
+}
+
+format(params)
