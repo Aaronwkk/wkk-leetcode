@@ -52,8 +52,63 @@
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var rotate = function(matrix) {
+// function swap(matrix, [], []){
+//   const t = arr[i]
+//   arr[i] = arr[j]
+//   arr[j] = t
+// }
+// var rotate = function(matrix) {
+//   let w = matrix[0].length
+//   let h = matrix.length
 
+//   function colFold(){
+//     let bottom = h - 1
+//     let top = 0
+//     while(top<bottom){
+//       let ind = 0
+//       while(ind <= w-1){
+//         const t = matrix[top][ind]
+//         matrix[top][ind] = matrix[bottom][ind]
+//         matrix[bottom][ind] =t
+//         ind++
+//       }
+//       top++
+//       bottom--
+//     }
+//   }
+//   function slantFold (){
+//     let ind = 0
+//     while(ind<=w-1){
+//       let top = 0
+//       while(top<ind){
+//         const t = matrix[top][ind]
+//         matrix[top][ind] = matrix[ind][top]
+//         matrix[ind][top] =t
+//         top++
+//       }
+//       ind++
+//     }
+//   }
+//   colFold()
+//   slantFold()
+//   return matrix
+// };
+
+var rotate = function(matrix) {
+  const n = matrix.length;
+  // 水平翻转
+  for (let i = 0; i < Math.floor(n / 2); i++) {
+      for (let j = 0; j < n; j++) {
+          [matrix[i][j], matrix[n - i - 1][j]] = [matrix[n - i - 1][j], matrix[i][j]];
+      }
+  }
+  // 主对角线翻转
+  for (let i = 0; i < n; i++) {
+      for (let j = 0; j < i; j++) {
+          [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+      }
+  }
 };
+
 // @lc code=end
 

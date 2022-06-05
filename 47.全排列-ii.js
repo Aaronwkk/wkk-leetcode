@@ -51,7 +51,7 @@
  * @return {number[][]}
  */
 var permuteUnique = function(nums) {
-  const len = nums.length - 1
+  const len = nums.length
   let ans = []
   function swap(arr, i, j){
     const t = arr[j]
@@ -59,7 +59,7 @@ var permuteUnique = function(nums) {
     arr[i] = t
   }
   const dfs = function(list, i){
-    if(i > len){
+    if(i >= len){
       let res = []
       for(let n of list){
         res.push(n)
@@ -67,12 +67,12 @@ var permuteUnique = function(nums) {
       ans.push(res)
     }
     let l = []
-    for(let j = i; j <= len; j++){
+    for(let j = i; j<len; j++){
       if(!l.includes(list[j])){
         l.push(list[j])
-        swap(list, i, j)
+        swap(list, j, i)
         dfs(list, i+1)
-        swap(list, i, j)
+        swap(list, j, i)
       }
     }
   }

@@ -97,14 +97,14 @@ function reverse(arr, begin, end){
 }
 var nextPermutation = function(nums) {
   const len = nums.length
-  let l = len - 2
-  while(l >= 0 && nums[l] >= nums[l+1]) l--
-  if(l >= 0){
-    let r = len - 1
-    while(r >= 0 && nums[r] <= nums[l]) r--
-    swap(nums, l, r)
+  let s = len - 2
+  let e = len - 1
+  while(s>=0 && nums[s] >= nums[s+1]) s--
+  if(s>=0){
+    while(e>=0 && nums[e] <= nums[s]) e--
+    swap(nums, s, e)
   }
-  reverse(nums, l+1, len-1)
+  reverse(nums, s+1, len-1)
   return nums
 };
 // @lc code=end
