@@ -69,40 +69,81 @@
  * @return {ListNode}
  */
 // 归并排序
+// function mergeSort(head){
+//   // 如果没有结点/只有一个结点，无需排序，直接返回
+//   if (head==null||head.next==null) return head;
+//   // 快慢指针找出中位点
+//   let slowp=head,fastp=head.next.next,l,r;
+//   while (fastp!=null&&fastp.next!=null){
+//       slowp=slowp.next;
+//       fastp=fastp.next.next;
+//   }
+//   // 对右半部分进行归并排序
+//   r=mergeSort(slowp.next);
+//   // 链表判断结束的标志：末尾节点.next==null
+//   slowp.next=null;
+//   // 对左半部分进行归并排序
+//   l=mergeSort(head);
+//   return mergeList(l,r);
+// }
+// // 合并链表
+// function mergeList(l,r){
+//   // 临时头节点
+//   let tmpHead=new ListNode(-1);
+//   let p=tmpHead;
+//   while (l!=null&&r!=null){
+//       if (l.val<r.val){
+//           p.next=l;
+//           l=l.next;
+//       }else {
+//           p.next=r;
+//           r=r.next;
+//       }
+//       p=p.next;
+//   }
+//   p.next=l==null?r:l;
+//   return tmpHead.next;
+// }
+// function sortList(head) {
+//     return mergeSort(head);
+// }
+
 function mergeSort(head){
-  // 如果没有结点/只有一个结点，无需排序，直接返回
-  if (head==null||head.next==null) return head;
-  // 快慢指针找出中位点
-  let slowp=head,fastp=head.next.next,l,r;
-  while (fastp!=null&&fastp.next!=null){
-      slowp=slowp.next;
-      fastp=fastp.next.next;
-  }
-  // 对右半部分进行归并排序
-  r=mergeSort(slowp.next);
-  // 链表判断结束的标志：末尾节点.next==null
-  slowp.next=null;
-  // 对左半部分进行归并排序
-  l=mergeSort(head);
-  return mergeList(l,r);
+    if(head === null || head.next === null) return head
+    let slow = head
+    let fast = head.next.next
+    while(fast && fast.next){
+        slow = slow.next
+        fast = fast.next.next
+    }
+    const r = mergeSort(slow.next)
+    slow.next = null
+    const l = mergeSort(head)
+    return mergeList(l, r)
 }
 // 合并链表
 function mergeList(l,r){
-  // 临时头节点
-  let tmpHead=new ListNode(-1);
-  let p=tmpHead;
-  while (l!=null&&r!=null){
-      if (l.val<r.val){
-          p.next=l;
-          l=l.next;
-      }else {
-          p.next=r;
-          r=r.next;
-      }
-      p=p.next;
-  }
-  p.next=l==null?r:l;
-  return tmpHead.next;
+    let pre = new ListNode(-1)
+    let temp = pre
+    let left = l
+    let right = r
+    while(left !== null && right !== null){
+        if(left.val > right.val){
+            temp.next = right
+            right = right.next
+        } else {
+            temp.next = left
+            left = left.next
+        }
+        temp = temp.next
+    }
+    if(left){
+        temp.next = left
+    }
+    if(right){
+        temp.next = right
+    }
+    return pre.next
 }
 function sortList(head) {
     return mergeSort(head);
